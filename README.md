@@ -17,15 +17,21 @@ This project demonstrates an automated pipeline to:
 jenkins-cicd-flask-k8s/
 │
 ├── app/
+│   ├── __init__.py
 │   ├── app.py
-│   └── requirements.txt
+│   ├── requirements.txt
+│   ├── static/
+│   │   └── style.css
+│   └── templates/
+│       └── index.html
 │
 ├── k8s/
 │   ├── deployment.yaml
 │   └── service.yaml
 │
 ├── Dockerfile
-└── Jenkinsfile
+├── Jenkinsfile
+└── README.md
 ```
 
 ---
