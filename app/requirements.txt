@@ -1,1 +1,12 @@
-Flask==2.2.5
+# Core Web Framework
+Flask==3.0.3
+
+# For structured logging and better observability
+gunicorn==23.0.0
+
+# For managing environment variables
+python-dotenv==1.0.1
+
+# Optional: useful for CI/CD health checks and readiness probes
+requests==2.32.3
+

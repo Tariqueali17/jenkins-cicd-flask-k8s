@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚀 Flask CI/CD DevOps Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #f8fafc;
+      text-align: center;
+      padding: 30px 10px;
+      margin: 0;
+    }
+
+    h1 {
+      color: #38bdf8;
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    p.subtitle {
+      color: #cbd5e1;
+      font-size: 1.05em;
+      margin-bottom: 30px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.04);
+      background: #334155;
+    }
+
+    .emoji {
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .status-light {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+      margin-left: 6px;
+      animation: pulse 1.5s infinite ease-in-out;
+      vertical-align: middle;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.95em;
+      color: #94a3b8;
+    }
+
+    footer strong {
+      color: #38bdf8;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.6em;
+      }
+      .card {
+        padding: 15px;
+      }
+      .emoji {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Flask CI/CD DevOps Dashboard</h1>
+  <p class="subtitle">Monitoring Application Health and Deployment Status</p>
+
+  <div class="dashboard">
+    <div class="card">
+      <div class="emoji">✅</div>
+      <h2>App Status</h2>
+      <p>Running Successfully <span class="status-light"></span></p>
+    </div>
+
+    <div class="card">
+      <h2>Environment</h2>
+      <p>development</p>
+    </div>
+
+    <div class="card">
+      <h2>Last Build</h2>
+      <p>🧱 Jenkins Pipeline: Passed</p>
+    </div>
+
+    <div class="card">
+      <h2>Docker Image</h2>
+      <p>📦 tariqueali1731/flask-app:latest</p>
+    </div>
+
+    <div class="card">
+      <h2>Kubernetes Status</h2>
+      <p>☸️ Deployment: Healthy</p>
+    </div>
+  </div>
+
+  <p style="margin-top: 30px;">
+    <a href="/api">View JSON API</a>
+  </p>
+
+  <footer>
+    Developed by <strong>Tarique Ali</strong>
+  </footer>
+</body>
+</html>

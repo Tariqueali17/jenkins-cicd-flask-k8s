@@ -1,0 +1,39 @@
+body {
+  background: #0f172a;
+  color: #f8fafc;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  padding: 50px;
+}
+
+.container {
+  background: #1e293b;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  display: inline-block;
+  min-width: 300px;
+}
+
+h1 {
+  color: #38bdf8;
+  margin-bottom: 20px;
+}
+
+.status {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.btn {
+  background: #38bdf8;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #0ea5e9;
+}
