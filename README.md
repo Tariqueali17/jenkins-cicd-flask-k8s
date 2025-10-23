@@ -17,21 +17,20 @@ This project demonstrates an automated pipeline to:
 jenkins-cicd-flask-k8s/
 │
 ├── app/
-│   ├── __init__.py
-│   ├── app.py
-│   ├── requirements.txt
-│   ├── static/
-│   │   └── style.css
-│   └── templates/
-│       └── index.html
+│   ├── app.py                     # Flask application entry point
+│   ├── requirements.txt           # Python dependencies
+│   ├── static/                    # Static files (CSS, JS, images)
+│   └── templates/                 # HTML templates
 │
 ├── k8s/
-│   ├── deployment.yaml
-│   └── service.yaml
+│   ├── deployment.yaml            # Kubernetes deployment config
+│   └── service.yaml               # Kubernetes service config
 │
-├── Dockerfile
-├── Jenkinsfile
-└── README.md
+├── Dockerfile                     # Docker build instructions
+├── Jenkinsfile                    # CI/CD pipeline (build → test → deploy)
+├── .gitignore                     # Ignore unnecessary files
+└── README.md                      # Documentation
+
 ```
 
 ---
