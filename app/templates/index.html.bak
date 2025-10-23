@@ -1,115 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🚀 Flask CI/CD DevOps Dashboard</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: #f8fafc;
-      text-align: center;
-      padding-top: 50px;
-      margin: 0;
-    }
-    h1 {
-      color: #38bdf8;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-    p.subtitle {
-      color: #cbd5e1;
-      font-size: 1.1em;
-      margin-bottom: 40px;
-    }
-    .card {
-      background: #1e293b;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 16px;
-      width: 400px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-    .card:hover {
-      transform: scale(1.03);
-      background: #334155;
-    }
-    .emoji {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-    a {
-      color: #38bdf8;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .status-light {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: #22c55e;
-      box-shadow: 0 0 10px #22c55e;
-      margin-left: 8px;
-      animation: pulse 1.5s infinite ease-in-out;
-      vertical-align: middle;
-    }
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.8;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.3);
-      }
-    }
-    footer {
-      margin-top: 50px;
-      font-size: 0.95em;
-      color: #94a3b8;
-    }
-    footer strong {
-      color: #38bdf8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 DevOps CI/CD Dashboard | Tarique Ali</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>🚀 Flask CI/CD DevOps Dashboard</h1>
-  <p class="subtitle">Monitoring Application Health and Deployment Status</p>
 
-  <div class="card">
-    <div class="emoji">✅</div>
-    <h2>App Status</h2>
-    <p>Running Successfully <span class="status-light"></span></p>
-  </div>
+    <header class="header">
+        <h1>🚀 DevOps CI/CD Dashboard</h1>
+        <p>by <strong>Tarique Ali</strong> | Monitoring Application Health & Deployment Status</p>
+    </header>
 
-  <div class="card">
-    <h2>Environment</h2>
-    <p>development</p>
-  </div>
+    <section class="dashboard">
+        <div class="card status">
+            <h2>App Status</h2>
+            <p>✅ Running Successfully</p>
+        </div>
 
-  <div class="card">
-    <h2>Last Build</h2>
-    <p>🧱 Jenkins Pipeline: Passed</p>
-  </div>
+        <div class="card environment">
+            <h2>Environment</h2>
+            <p>🌍 Development</p>
+        </div>
 
-  <div class="card">
-    <h2>Docker Image</h2>
-    <p>📦 tariqueali1731/flask-app:latest</p>
-  </div>
+        <div class="card build">
+            <h2>Last Build</h2>
+            <p>🧱 Jenkins Pipeline: <span class="success">Passed</span></p>
+        </div>
 
-  <div class="card">
-    <h2>Kubernetes Status</h2>
-    <p>☸️ Deployment: Healthy</p>
-  </div>
-
-  <p><a href="/api">View JSON API</a></p>
-
-  <footer>Developed by <strong>Tarique Ali</strong></footer>
-</body>
-</html>
+        <div class="card docker">
+            <h2>Docker Image</h2>
+            <p>📦 tariqueali1731/flask-app:latest</p>
