@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "tariqueali1731/flask-app"
         DOCKER_TAG = "v${BUILD_NUMBER}"
-        DOCKERHUB_CRED = "dockerhub-cred" // Jenkins credential ID
+        DOCKERHUB_CRED = "dockerhub-cred"  // Jenkins credential ID
     }
 
     stages {
@@ -25,13 +25,15 @@ pipeline {
 
         stage('Push to DockerHub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CRED}", usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
-                    script {
-                        sh """
+                withCredentials([usernamePassword(
+                    credentialsId: "$DOCKERHUB_CRED", 
+                    usernameVariable: 'DOCKERHUB_USER', 
+                    passwordVariable: 'DOCKERHUB_PASS')]) {
+                    
+                    sh """
                         echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
                         docker push $DOCKER_IMAGE:$DOCKER_TAG
-                        """
-                    }
+                    """
                 }
             }
         }
@@ -40,9 +42,11 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker stop flask-app || true
-                    docker rm flask-app || true
-                    docker run -d -p 5000:5000 --name flask-app $DOCKER_IMAGE:$DOCKER_TAG
+                        # Remove any running container with the same name
+                        docker ps -q --filter "name=flask-app" | xargs -r docker rm -f
+                        
+                        # Run the new container
+                        docker run -d -p 5000:5000 --name flask-app $DOCKER_IMAGE:$DOCKER_TAG
                     """
                 }
             }
@@ -54,7 +58,7 @@ pipeline {
             echo "✅ Deployment successful! App running on port 5000"
         }
         failure {
-            echo "❌ Build or deployment failed. Check Jenkins logs."
+            echo "❌ Build or deployment failed. Check logs."
         }
     }
 }
