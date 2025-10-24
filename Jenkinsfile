@@ -2,61 +2,51 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CRED = credentials('dockerhub-login')
-        IMAGE_NAME = "tariqueali1731/flask-cicd-app"
-        KUBECONFIG_CRED = credentials('kubeconfig-cred')
+        DOCKER_IMAGE = "tariqueali17/flask-k8s-app"
+        DOCKER_TAG = "v${BUILD_NUMBER}"
+        KUBECONFIG_CRED = 'kubeconfig-cred'  // Jenkins credential ID for K8s
+        DOCKERHUB_CRED = 'dockerhub-cred'    // Jenkins credential ID for DockerHub
     }
 
     stages {
-        stage('Checkout Code') {
+
+        stage('Checkout') {
             steps {
-                git branch: 'main',
-                    credentialsId: 'github-cred',
-                    url: 'https://github.com/Tariqueali17/jenkins-cicd-flask-k8s.git'
+                git branch: 'main', url: 'https://github.com/Tariqueali17/jenkins-cicd-flask-k8s.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t $IMAGE_NAME:${BUILD_NUMBER} -t $IMAGE_NAME:latest .'
+                    sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
                 }
             }
         }
 
         stage('Push to DockerHub') {
             steps {
-                script {
-                    sh '''
-                        echo $DOCKERHUB_CRED_PSW | docker login -u $DOCKERHUB_CRED_USR --password-stdin
-                        docker push $IMAGE_NAME:${BUILD_NUMBER}
-                        docker push $IMAGE_NAME:latest
-                    '''
+                withCredentials([usernamePassword(credentialsId: "$DOCKERHUB_CRED", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    script {
+                        sh """
+                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                        docker push $DOCKER_IMAGE:$DOCKER_TAG
+                        """
+                    }
                 }
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                withKubeConfig([credentialsId: 'kubeconfig-cred']) {
+                withCredentials([file(credentialsId: "$KUBECONFIG_CRED", variable: 'KUBECONFIG_FILE')]) {
                     script {
-                        sh '''
-                            kubectl set image deployment/flask-app-deployment flask-app=$IMAGE_NAME:latest -n default || true
-                            kubectl rollout status deployment/flask-app-deployment -n default || true
-                        '''
+                        sh """
+                        export KUBECONFIG=$KUBECONFIG_FILE
+                        kubectl set image deployment/flask-app-deployment flask-app-container=$DOCKER_IMAGE:$DOCKER_TAG -n default
+                        kubectl rollout status deployment/flask-app-deployment -n default
+                        """
                     }
-                }
-            }
-        }
-
-        stage('Post-Deployment Verification') {
-            steps {
-                script {
-                    sh '''
-                        echo "Verifying Deployment..."
-                        kubectl get pods -n default
-                        kubectl get svc -n default
-                    '''
                 }
             }
         }
@@ -64,10 +54,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Deployment successful! Version: ${BUILD_NUMBER}"
+            echo "✅ Deployment successful! Build: ${BUILD_NUMBER}"
         }
         failure {
-            echo "❌ Build or deployment failed. Check logs."
+            echo "❌ Deployment failed. Please check Jenkins logs."
         }
     }
 }
